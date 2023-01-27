@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  saint-prediction-model-trainer:
+    image: saint-prediction-model-trainer
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - ENVIRONMENT=development
+      - AWS_ACCESS_KEY_ID=fake
+      - AWS_SECRET_ACCESS_KEY=fake
+      - AWS_REGION=us-east-1
+      - S3_ENDPOINT=s3-server:4566
+      - LOGGING_DB_HOST=postgres-server
+      - LOGGING_DB_PORT=5432
+      - LOGGING_DB_DATABASE=saint
+      - LOGGING_DB_USERNAME=user
+      - LOGGING_DB_PASSWORD=password
+      - DATA_WAREHOUSE_HOST=postgres-server
+      - DATA_WAREHOUSE_PORT=5432
+      - DATA_WAREHOUSE_DATABASE=saint
+      - DATA_WAREHOUSE_USERNAME=user
+      - DATA_WAREHOUSE_PASSWORD=password
+    ports:
+      - 4567:80
+
+networks:
+  default:
+    external: true
+    name: local-network
