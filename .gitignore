@@ -18,6 +18,7 @@ null/
 parts/
 sdist/
 var/
+.idea/
 *.egg-info/
 .installed.cfg
 *.egg
