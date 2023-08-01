@@ -3,6 +3,7 @@ from botocore.client import BaseClient
 from botocore.response import StreamingBody
 from data_access.data_stores.blob.base import BaseBlobClient
 
+
 class S3Client(BaseBlobClient):
 
     def __init__(self,

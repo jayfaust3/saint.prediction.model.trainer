@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ColumnDataType(Enum):
     BOOLEAN = 1,
     STRING = 2,

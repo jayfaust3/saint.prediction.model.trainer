@@ -6,10 +6,11 @@ from core.enums.prediction_type import PredictionType
 from application.resolvers.blob_file_names.column_transformer import ColumnTransformerFileNameResolver
 from data_access.data_stores.blob.base import BaseBlobClient
 
+
 class ColumnTransformerWriter(object):
 
-    def __init__(self, 
-    blob_client: BaseBlobClient) -> None:
+    def __init__(self,
+                 blob_client: BaseBlobClient) -> None:
         self.__blob_client: BaseBlobClient = blob_client
         self.__directory: str = directory
 
@@ -19,5 +20,5 @@ class ColumnTransformerWriter(object):
         blob: Any = dumps(column_transformer)
 
         self.__blob_client.post_blob(self.__directory, blob_name, blob)
-        
+
         return

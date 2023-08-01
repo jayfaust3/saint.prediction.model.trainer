@@ -4,10 +4,11 @@ from application.resolvers.blob_file_names.ml_model import MLModelFileNameResolv
 from data_access.data_stores.blob.base import BaseBlobClient
 from tensorflow.keras import Model
 
+
 class ModelWriter(object):
 
-    def __init__(self, 
-    blob_client: BaseBlobClient) -> None:
+    def __init__(self,
+                 blob_client: BaseBlobClient) -> None:
         self.__blob_client: BaseBlobClient = blob_client
         self.__directory: str = directory
 

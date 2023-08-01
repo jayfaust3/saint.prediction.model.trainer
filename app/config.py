@@ -13,19 +13,9 @@ settings = {
     },
     'environment': getenv('ENVIRONMENT', 'development'),
     'sql': {
-        'logging_db': {
-            'host': getenv('LOGGING_DB_HOST'),
-            'port': getenv('LOGGING_DB_PORT'),
-            'database': getenv('LOGGING_DB_DATABASE'),
-            'username': getenv('LOGGING_DB_USERNAME'),
-            'password': getenv('LOGGING_DB_PASSWORD')
-        },
         'data_warehouse': {
-            'host': getenv('DATA_WAREHOUSE_HOST'),
-            'port': getenv('DATA_WAREHOUSE_PORT'),
-            'database': getenv('DATA_WAREHOUSE_DATABASE'),
-            'username': getenv('DATA_WAREHOUSE_USERNAME'),
-            'password': getenv('DATA_WAREHOUSE_PASSWORD')
+            'connection_string': getenv('SAINT_ANALYTICS_DB_CONNECTION_STRING'),
+            'saint_martyred_fact_table_name': getenv('SAINT_ANALYTICS_DB_SAINT_MARTYRED_FACT_TABLE_NAME')
         }
     },
 }
