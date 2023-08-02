@@ -4,20 +4,9 @@ EXPOSE 80
 
 RUN apt-get update
 
-# PYODBC DEPENDENCES
-RUN apt-get install g++ -y \
-    # Probably the below package is not necessary
-    && apt-get install gcc -y \
-    # Packages below are most likely necessary
-    && apt-get install unixodbc -y \
-    && apt-get install unixodbc-dev -y \
-    && apt-get install unixodbc-bin -y \
-    && apt-get install odbc-postgresql -y
+RUN apt-get update
 
-RUN apt-get install libpq-dev
-
-ADD odbcinst.ini /etc/odbcinst.ini
-ADD odbc.ini /etc/odbc.ini
+RUN apt-get install libpq5 -y
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1

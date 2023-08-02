@@ -1,7 +1,7 @@
+from boto3 import client
 from config import settings
 from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import Configuration, Singleton
-from boto3 import client
 from data_access.data_stores.sql.connection_manager import ConnectionManager
 from data_access.data_stores.sql.repositories.read import ReadRepository
 from data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
@@ -9,6 +9,7 @@ from data_access.data_stores.blob.s3 import S3Client
 from application.ml_model_operations.model_writer import ModelWriter
 from application.column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
 from application.ml_model_trainers.saint.martyred import MartyredModelTrainer
+from core.utilities.startup import train_models
 
 
 class Container(DeclarativeContainer):
@@ -20,13 +21,8 @@ class Container(DeclarativeContainer):
     environment = __config.environment()
 
     # data access
-
     __data_warehouse_connection_manager = Singleton(ConnectionManager,
-                                                    connection_string=__config.sql.data_warehouse.connection_string(),
-                                                    port=__config.sql.data_warehouse.port(),
-                                                    database=__config.sql.data_warehouse.database(),
-                                                    username=__config.sql.data_warehouse.username(),
-                                                    password=__config.sql.data_warehouse.password())
+                                                    connection_string=__config.sql.data_warehouse.connection_string())
 
     __data_warehouse_read_repository = Singleton(ReadRepository, connection_manager=__data_warehouse_connection_manager)
 

@@ -5,5 +5,5 @@ MARTYRED_QUERY: str = '''
 	    region,
 	    martyred AS target
     FROM
-	    public.fact_saint_martyred;
+	    {saint_martyred_fact_table_name};
 '''
