@@ -17,6 +17,8 @@ services:
       - SAINT_ANALYTICS_DB_SAINT_MARTYRED_FACT_TABLE_NAME=${SAINT_ANALYTICS_DB_SAINT_MARTYRED_FACT_TABLE_NAME}
     ports:
       - 4567:80
+    platform: linux/amd64
+    restart: always
 
 networks:
   default:

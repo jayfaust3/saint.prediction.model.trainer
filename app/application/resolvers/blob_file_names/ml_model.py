@@ -1,6 +1,7 @@
 from core.enums.prediction_type import PredictionType
 from core.constants.blob_file_names.ml_model import *
 
+
 class MLModelFileNameResolver(object):
     
     def __init__(self) -> None:
