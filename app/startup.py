@@ -1,7 +1,8 @@
+from os import getenv
 from flask import Flask
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap4
 from container import Container
-from app.core.constants.app_metadata import APP_NAME
+from core.constants.app_metadata import APP_NAME
 
 
 class StartUp(object):
@@ -9,10 +10,9 @@ class StartUp(object):
     @staticmethod
     def build() -> Flask:
         app = Flask(APP_NAME)
-        container = Container()
-        app.env = container.environment
-        app.container = container
-        bootstrap = Bootstrap()
+        app.env = getenv('ENVIRONMENT', 'development')
+        app.container = Container()
+        bootstrap = Bootstrap4()
         bootstrap.init_app(app)
 
         return app
