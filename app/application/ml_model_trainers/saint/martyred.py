@@ -1,15 +1,15 @@
 from typing import Any
-from application.column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
-from application.ml_model_trainers.base import BaseModelTrainer
-from application.ml_model_operations.model_writer import ModelWriter
-from core.enums.prediction_type import PredictionType
-from core.constants.ml_model_metrics import METRICS as metrics
-from data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
 from tensorflow.keras import Model, Input
 from tensorflow.keras.layers import Layer, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.data import Dataset
+from ....core.enums.prediction_type import PredictionType
+from ....core.constants.ml_model_metrics import METRICS
+from ....data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
+from ...column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
+from ...ml_model_trainers.base import BaseModelTrainer
+from ...ml_model_operations.model_writer import ModelWriter
 
 
 class MartyredModelTrainer(BaseModelTrainer):
@@ -51,7 +51,7 @@ class MartyredModelTrainer(BaseModelTrainer):
 
         model.compile(optimizer=optimizer,
                       loss=loss,
-                      metrics=metrics)
+                      metrics=METRICS)
 
     def _fit_model(self, model: Model, x_train: list, x_test: list, y_train: list, y_test: list) -> None:
         dataset_train = Dataset.from_tensor_slices((x_train, y_train))

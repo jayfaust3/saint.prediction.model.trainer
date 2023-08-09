@@ -1,6 +1,6 @@
 from pandas import DataFrame, read_sql
 from psycopg.connection import Connection
-from data_access.data_stores.sql.connection_manager import ConnectionManager
+from ..connection_manager import ConnectionManager
 
 
 class ReadRepository(object):

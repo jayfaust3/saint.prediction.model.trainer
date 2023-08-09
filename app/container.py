@@ -1,64 +1,26 @@
+from os import getenv
 from boto3 import client
-from dependency_injector.containers import DeclarativeContainer
-from dependency_injector.providers import Configuration, Factory, Singleton
-from config import settings
 from data_access.data_stores.sql.connection_manager import ConnectionManager
 from data_access.data_stores.sql.repositories.read import ReadRepository
 from data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
 from data_access.data_stores.blob.s3 import S3Client
+from application.ml_model_operations.model_writer import ModelWriter
+from application.column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
+from application.ml_model_trainers.saint.martyred import MartyredModelTrainer
 
 
-# from application.ml_model_operations.model_writer import ModelWriter
-# from application.column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
-# from application.ml_model_trainers.saint.martyred import MartyredModelTrainer
-# from core.utilities.startup import train_models
+class Container(object):
 
-
-class Container(DeclarativeContainer):
-    __config = Configuration()
-
-    __config.from_dict(settings)
-
-    # data access
-    __data_warehouse_connection_manager = Singleton(ConnectionManager,
-                                                    connection_string=__config.sql.data_warehouse.connection_string())
-
-    __data_warehouse_read_repository = Singleton(ReadRepository, connection_manager=__data_warehouse_connection_manager)
-
-    __ml_model_data_query_handler = Singleton(MLModelQueryHandler, read_repository=__data_warehouse_read_repository)
-    # data access
-
-    # blob
-    # __blob_client = Factory(S3Client,
-    #                           s3_client=client('s3',
-    #                                            region_name=__config.aws.region(),
-    #                                            aws_access_key_id=__config.aws.access_key_id(),
-    #                                            aws_secret_access_key=__config.aws.access_key_secret(),
-    #                                            endpoint_url=__config.blob.s3.endpoint(),
-    #                                            use_ssl=False,
-    #                                            verify=False))
-    __blob_client = Factory(S3Client)
-    # blob
-
-    # application
-
-    # ml model ops
-    # __model_writer = Singleton(ModelWriter, blob_client=__blob_client)
-    # ml model ops
-
-    # column transformer ops
-    # __column_transformer_writer = Singleton(ColumnTransformerWriter, blob_client=__blob_client)
-    # column transformer ops
-
-    # model trainers
-    # __martyred_model_trainer = Singleton(MartyredModelTrainer,
-    #                                      query_handler=__ml_model_data_query_handler,
-    #                                      model_writer=__model_writer,
-    #                                      column_transformer_writer=__column_transformer_writer)
-    # model trainers
-
-    # initialization
-    # train_models([
-    #     __martyred_model_trainer()
-    # ])
-    # initialization
+    def __init__(self) -> None:
+        self.data_warehouse_connection_manager = ConnectionManager(getenv('SAINT_ANALYTICS_DB_CONNECTION_STRING'))
+        self.data_warehouse_read_repository = ReadRepository(self.data_warehouse_connection_manager)
+        self.ml_model_data_query_handler = MLModelQueryHandler(self.data_warehouse_read_repository)
+        self.blob_client = S3Client(client('s3',
+                                           endpoint_url=getenv('AWS_S3_ENDPOINT'),
+                                           use_ssl=False,
+                                           verify=False))
+        self.model_writer = ModelWriter(self.blob_client)
+        self.column_transformer_writer = ColumnTransformerWriter(self.blob_client)
+        self.martyred_model_trainer = MartyredModelTrainer(self.ml_model_data_query_handler,
+                                                           self.model_writer,
+                                                           self.column_transformer_writer)

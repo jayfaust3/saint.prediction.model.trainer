@@ -1,7 +1,7 @@
-from core.enums.prediction_type import PredictionType
-from data_access.data_stores.sql.repositories.read import ReadRepository
 from pandas import DataFrame
-from data_access.data_stores.sql.resolvers.query.ml_model_data import MLModelDataQueryResolver
+from .....core.enums.prediction_type import PredictionType
+from ..repositories.read import ReadRepository
+from ..resolvers.query.ml_model_data import MLModelDataQueryResolver
 
 
 class MLModelQueryHandler(object):

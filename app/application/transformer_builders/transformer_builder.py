@@ -1,17 +1,14 @@
 from typing import List
-from application.resolvers.ml_model_data_transformable_columns import MLModelDataTransformableColumnsResolver
-from core.data_models.data_column import DataColumnModel
-from core.enums.prediction_type import PredictionType
-from core.enums.column_data_type import ColumnDataType
 from pandas import DataFrame
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from ...core.data_models.data_column import DataColumnModel
+from ...core.enums.prediction_type import PredictionType
+from ...core.enums.column_data_type import ColumnDataType
+from ..resolvers.ml_model_data_transformable_columns import MLModelDataTransformableColumnsResolver
 
 
 class TransformerBuilder(object):
-
-    def __init__(self) -> None:
-        pass
 
     @staticmethod
     def get_column_transformer(prediction_type: PredictionType, data: DataFrame) -> ColumnTransformer:

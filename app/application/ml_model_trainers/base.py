@@ -1,18 +1,18 @@
-from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split
 from abc import ABC, abstractmethod
 from typing import List
 from traceback import format_exception
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
 from pandas.core.frame import DataFrame
 from tensorflow.keras import Model
-from application.column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
-from application.ml_model_operations.model_writer import ModelWriter
-from core.enums.prediction_type import PredictionType
-from core.enums.column_data_type import ColumnDataType
-from core.data_models.data_column import DataColumnModel
-from data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
-from application.transformer_builders.transformer_builder import TransformerBuilder
-from application.resolvers.ml_model_data_transformable_columns import MLModelDataTransformableColumnsResolver
+from ...core.enums.prediction_type import PredictionType
+from ...core.enums.column_data_type import ColumnDataType
+from ...core.data_models.data_column import DataColumnModel
+from ...data_access.data_stores.sql.query_handlers.ml_model_data import MLModelQueryHandler
+from ..column_transformation_operations.column_transformer_writer import ColumnTransformerWriter
+from ..ml_model_operations.model_writer import ModelWriter
+from ..transformer_builders.transformer_builder import TransformerBuilder
+from ..resolvers.ml_model_data_transformable_columns import MLModelDataTransformableColumnsResolver
 
 
 class BaseModelTrainer(ABC):
