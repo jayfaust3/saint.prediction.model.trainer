@@ -1,0 +1,12 @@
+{
+  "name": "saint-prediction-model-trainer-cdk",
+  "version": "0.1.0",
+  "description": "Responsible for provisioning saint prediction model training related resources",
+  "scripts": {
+    "bundle": "zip -r app.zip ../app"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.92.0",
+    "constructs": "10.2.69"
+  }
+}
