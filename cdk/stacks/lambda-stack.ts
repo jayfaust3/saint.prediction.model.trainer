@@ -1,16 +1,17 @@
-import { Construct } from 'constructs';
+import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 
-export class LambdaStack extends Construct {
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
+export class LambdaStack extends Stack {
+  constructor(scope: App, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-
-    const handler = new Function(this, '', {
+    const sainyMartyredModelTrainerFn = new Function(this, 'SainyMartyredModelTrainerFn', {
       runtime: Runtime.PYTHON_3_10,
       code: Code.fromAsset('../app.zip'),
       handler: 'lambdas/martyred_model_trainer.handler',
       environment: {}
     });
+
+    // const instanceActionPolicy = 
   }
 }
