@@ -10,7 +10,7 @@ export class LambdaStack extends Stack {
     const sainyMartyredModelTrainerFn = new Function(this, 'SainyMartyredModelTrainerFn', {
       runtime: Runtime.PYTHON_3_10,
       code: Code.fromAsset('../app.zip'),
-      handler: 'lambdas/martyred_model_trainer.handler',
+      handler: 'lambda.handler',
       environment: {}
     });
 
