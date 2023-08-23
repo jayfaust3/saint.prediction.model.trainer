@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Responsible for provisioning saint prediction model training related resources",
   "scripts": {
-    "bundle": "zip -r app.zip ../app"
+    "bundle": "zip -r app.zip ../app",
+    "synth": "cdklocal synth",
+    "bootstrap": "cdklocal bootstrap",
+    "deploy": "cdklocal deploy"
   },
   "dependencies": {
     "aws-cdk-lib": "2.92.0",
