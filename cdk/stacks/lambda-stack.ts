@@ -32,6 +32,6 @@ export class LambdaStack extends Stack {
         schedule: Schedule.expression('cron(*/15 * * * *)')
     });
 
-    eventRule.addTarget(new LambdaFunction(sainyMartyredModelTrainerFn))
+    eventRule.addTarget(new LambdaFunction(sainyMartyredModelTrainerFn));
   }
 }
