@@ -16,7 +16,7 @@ class Container(object):
         self.data_warehouse_read_repository = ReadRepository(self.data_warehouse_connection_manager)
         self.ml_model_data_query_handler = MLModelQueryHandler(self.data_warehouse_read_repository)
         self.blob_client = S3Client(client('s3',
-                                           endpoint_url=getenv('AWS_S3_ENDPOINT'),
+                                        #    endpoint_url=getenv('AWS_S3_ENDPOINT'),
                                            use_ssl=False,
                                            verify=False))
         self.model_writer = ModelWriter(self.blob_client)
